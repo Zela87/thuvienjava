@@ -1,0 +1,66 @@
+/* Style riêng cho trang Báo cáo sự cố */
+.report-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.report-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    border-left: 4px solid var(--primary-color);
+}
+
+.report-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.msg-box {
+    border: 1px solid #e3e6f0;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background: #f8f9fc;
+}
+
+.tag-type {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    margin-right: 8px;
+}
+
+.bg-the { background: #e74a3b; } /* Danger Red */
+.bg-sach { background: #f6c23e; } /* Warning Yellow */
+.bg-web { background: #4e73df; } /* Primary Blue */
+.bg-khac { background: #858796; } /* Secondary Gray */
+
+.status-new { color: #f6c23e; font-weight: bold; background: #fef9e7; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+.status-done { color: #1cc88a; font-weight: bold; background: #e5f9f0; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+
+.msg-reply {
+    background: #ffffff;
+    padding: 15px;
+    margin-top: 15px;
+    border-left: 4px solid #1cc88a;
+    border-radius: 4px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+.sothe-badge {
+    background: #eaecf4;
+    color: #4e73df;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}

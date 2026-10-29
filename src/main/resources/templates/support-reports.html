@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hỗ trợ | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Hỗ trợ và báo cáo sự cố</h1>
+    <div class="success" th:if="${success}" th:text="${success}"></div><div class="alert" th:if="${error}" th:text="${error}"></div>
+    <section class="admin-section" th:if="${isReader}"><h2>Gửi yêu cầu hỗ trợ</h2>
+        <form class="report-form" method="post" th:action="@{/bao-cao/gui}">
+            <label>Loại vấn đề<select name="type" required><option value="">Chọn loại</option><option>Vấn đề về thẻ</option><option>Hết sách</option><option>Web lỗi</option><option>Khác</option></select></label>
+            <label>Tiêu đề<input name="title" required maxlength="255"></label>
+            <label>Nội dung<textarea name="body" rows="5" required maxlength="5000"></textarea></label>
+            <button type="submit">Gửi báo cáo</button>
+        </form>
+    </section>
+    <section class="admin-section"><h2>Danh sách báo cáo</h2>
+        <article class="report-card" th:each="report : ${reports}">
+            <div class="report-heading"><span class="status-pill" th:text="${report.type()}"></span><strong th:text="${report.title()}"></strong><span class="muted" th:text="${report.status()}"></span></div>
+            <p class="muted"><span th:text="${report.reporter()}"></span><span th:if="${report.cardNumber() != null}" th:text="| · Thẻ ${report.cardNumber()}|"></span> · <span th:text="${report.reportedAt()}"></span></p>
+            <p class="report-body" th:text="${report.body()}"></p>
+            <div class="notice" th:if="${report.reply() != null and !report.reply().isBlank()}" th:text="${report.reply()}"></div>
+            <form class="inline-form" th:if="${user != null and user.isStaff() and (report.reply() == null or report.reply().isBlank())}" method="post" th:action="@{/bao-cao/phan-hoi}">
+                <input type="hidden" name="reportId" th:value="${report.id()}"><input name="reply" required maxlength="2000" placeholder="Nhập nội dung phản hồi"><button type="submit">Gửi phản hồi</button>
+            </form>
+        </article>
+        <p th:if="${#lists.isEmpty(reports)}">Chưa có báo cáo phù hợp.</p>
+    </section>
+</main></body></html>

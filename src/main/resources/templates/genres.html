@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thể loại | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Quản lý thể loại</h1>
+    <div class="notice" th:if="${message}" th:text="${message == 'linked' ? 'Không thể xóa thể loại đang có sách sử dụng.' : (message == 'error' ? 'Không thể lưu dữ liệu.' : 'Thao tác hoàn tất.')}"></div>
+    <form class="inline-form" method="post" th:action="@{/the-loai/them}"><label for="genre-name">Thể loại mới</label><input id="genre-name" name="ten" required maxlength="150"><button type="submit">Thêm</button></form>
+    <div class="table-wrap"><table><thead><tr><th>Mã</th><th>Tên thể loại</th><th></th></tr></thead><tbody>
+    <tr th:each="row : ${rows}"><td th:text="${row.id()}"></td><td th:text="${row.name()}"></td><td><form method="post" th:action="@{/the-loai/xoa}"><input type="hidden" name="id" th:value="${row.id()}"><button class="danger" type="submit">Xóa</button></form></td></tr>
+    <tr th:if="${#lists.isEmpty(rows)}"><td colspan="3">Chưa có thể loại.</td></tr>
+    </tbody></table></div>
+</main></body></html>

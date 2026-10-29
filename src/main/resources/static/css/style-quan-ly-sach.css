@@ -1,0 +1,108 @@
+/* Style riêng cho trang Quản lý sách */
+.manage-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    margin-bottom: 25px;
+    border-top: 4px solid var(--primary-color);
+}
+
+.manage-card h2 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Table styling */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table th {
+    background-color: #f8f9fc;
+    color: #4e73df;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 12px;
+    border-bottom: 2px solid #e3e6f0;
+}
+
+.custom-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e3e6f0;
+    vertical-align: middle;
+}
+
+/* Barcode badges */
+.barcode-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.copy-item {
+    display: flex;
+    align-items: center;
+    background: #f1f3f9;
+    padding: 2px 8px;
+    border-radius: 5px;
+    border: 1px solid #d1d3e2;
+}
+
+.barcode-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-left: 5px;
+    cursor: help;
+}
+
+.bc-green { color: var(--success-color); }
+.bc-red { color: var(--danger-color); }
+
+/* Form elements */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4e73df;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d3e2;
+    border-radius: 5px;
+}
+
+.btn-add {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+.alert.success { background: #e5f9f0; color: var(--success-color); border: 1px solid #b7ebcf; }
+.alert.error { background: #fdf2f2; color: var(--danger-color); border: 1px solid #f8d7d7; }

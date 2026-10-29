@@ -1,0 +1,25 @@
+.borrow-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+.info-box { 
+    background: white; padding: 20px; border-radius: 10px; 
+    border-left: 4px solid var(--primary-color); box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+}
+.book-table-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1); }
+
+table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+th { background: #f8f9fc; color: #4e73df; padding: 12px; text-align: left; border-bottom: 2px solid #e3e6f0; }
+td { padding: 12px; border-bottom: 1px solid #e3e6f0; }
+
+.barcode-tag {
+    display: inline-block; padding: 4px 8px; margin: 2px; border-radius: 4px;
+    font-size: 0.75rem; font-weight: bold; cursor: pointer; border: 1px solid #ddd;
+}
+.bc-green { background: #e5f9f0; color: #1cc88a; border-color: #1cc88a; }
+.bc-yellow { background: #fff3cd; color: #f6c23e; border-color: #f6c23e; }
+.bc-red { background: #fdf2f2; color: #e74a3b; border-color: #e74a3b; opacity: 0.6; cursor: not-allowed; }
+.barcode-tag.selected { background: #4e73df; color: white; box-shadow: 0 0 8px rgba(78, 115, 223, 0.5); }
+
+.btn-borrow {
+    background: var(--primary-color); color: white; border: none; padding: 12px;
+    width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 15px;
+}
+.btn-borrow:disabled { background: #eaecf4; color: #b7b9cc; cursor: not-allowed; }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quản lý sách | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Quản lý đầu sách và bản sao</h1>
+    <div class="notice" th:if="${message}" th:switch="${message}">
+        <span th:case="'book-added'">Đã thêm đầu sách.</span>
+        <span th:case="'copies-added'">Đã thêm bản sao.</span>
+        <span th:case="'book-deleted'">Đã xóa đầu sách.</span>
+        <span th:case="'has-history'">Không thể xóa đầu sách có bản đang mượn hoặc có lịch sử mượn.</span>
+        <span th:case="'no-selection'">Hãy chọn ít nhất một bản sao.</span>
+        <span th:case="'copies-removed'" th:text="|Đã xóa ${deleted} bản mới, thanh lý ${liquidated} bản có lịch sử; bỏ qua ${borrowing} bản đang mượn.|"></span>
+        <span th:case="'invalid'">Dữ liệu không hợp lệ. Số bản thêm tối đa là 100.</span>
+        <span th:case="*">Không thể hoàn tất thao tác. Hãy kiểm tra dữ liệu và cấu hình cơ sở dữ liệu.</span>
+    </div>
+
+    <section class="admin-section"><h2>Thêm đầu sách</h2>
+        <form class="inline-form book-form" method="post" th:action="@{/sach/them}">
+            <label>Tên sách<input name="ten" required maxlength="255"></label>
+            <label>Năm xuất bản<input name="nam" type="number" min="1000" th:max="${currentYear}" required></label>
+            <label>Giá sách<input name="gia" type="number" min="0" step="0.01" required></label>
+            <label>Thể loại<select name="theloai" required><option value="">Chọn thể loại</option><option th:each="row : ${genres}" th:value="${row.id()}" th:text="${row.name()}"></option></select></label>
+            <label>Tác giả chính<select name="ma_tacgia" required><option value="">Chọn tác giả</option><option th:each="row : ${authors}" th:value="${row.id()}" th:text="${row.name()}"></option></select></label>
+            <label>Nhà xuất bản<select name="ma_nxb_select" required><option value="">Chọn nhà xuất bản</option><option th:each="row : ${publishers}" th:value="${row.id()}" th:text="${row.name()}"></option></select></label>
+            <button type="submit">Lưu đầu sách</button>
+        </form>
+    </section>
+
+    <section class="admin-section"><h2>Đầu sách</h2><div class="table-wrap"><table>
+        <thead><tr><th>Mã</th><th>Tên sách</th><th>Năm</th><th>Giá</th><th>Tác giả</th><th>Nhà xuất bản</th><th>Số bản</th><th>Thao tác</th></tr></thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.id()}"></td><td th:text="${book.title()}"></td><td th:text="${book.year()}"></td>
+            <td th:text="${#numbers.formatDecimal(book.price(), 1, 'COMMA', 0, 'POINT')}"></td>
+            <td th:text="${book.authors() == null ? '—' : book.authors()}"></td><td th:text="${book.publisher()}"></td><td th:text="${book.copies()}"></td>
+            <td class="actions-cell">
+                <form method="post" th:action="@{/sach/ban-sao/them}"><input type="hidden" name="bookId" th:value="${book.id()}"><input type="number" name="quantity" value="1" min="1" max="100" aria-label="Số bản sao"><button type="submit">Thêm bản</button></form>
+                <form method="post" th:action="@{/sach/xoa}"><input type="hidden" name="id" th:value="${book.id()}"><button class="danger" type="submit">Xóa đầu sách</button></form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(books)}"><td colspan="8">Chưa có đầu sách.</td></tr>
+        </tbody>
+    </table></div></section>
+
+    <section class="admin-section"><h2>Bản sao</h2>
+        <form method="post" th:action="@{/sach/ban-sao/xoa}">
+            <div class="table-wrap"><table><thead><tr><th></th><th>Mã vạch</th><th>Đầu sách</th><th>Trạng thái</th><th>Tình trạng vật lý</th></tr></thead><tbody>
+                <tr th:each="copy : ${copies}">
+                    <td><input type="checkbox" name="selectedCopies" th:value="${copy.barcode()}" aria-label="Chọn bản sao"></td>
+                    <td th:text="${copy.barcode()}"></td><td th:text="${copy.title()}"></td>
+                    <td th:text="${copy.status() == 0 ? 'Đang mượn' : (copy.status() == 1 ? 'Có sẵn' : (copy.status() == 3 ? 'Thanh lý' : 'Không khả dụng'))}"></td>
+                    <td th:text="${copy.physicalCondition()}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(copies)}"><td colspan="5">Chưa có bản sao.</td></tr>
+            </tbody></table></div>
+            <button class="danger" type="submit">Xóa bản đã chọn (bản có lịch sử sẽ thanh lý)</button>
+        </form>
+    </section>
+</main></body></html>

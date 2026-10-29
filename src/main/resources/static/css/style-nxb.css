@@ -1,0 +1,17 @@
+.nxb-card {
+    background: white; padding: 25px; border-radius: 10px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    border-top: 4px solid var(--primary-color);
+}
+
+.nxb-form-container {
+    background: #f8f9fc; padding: 20px; border-radius: 8px; margin-bottom: 25px;
+    border: 1px solid #e3e6f0;
+}
+
+.table-nxb { width: 100%; border-collapse: collapse; margin-top: 15px; }
+.table-nxb th { background: #f8f9fc; color: #4e73df; padding: 12px; text-align: left; }
+.table-nxb td { padding: 12px; border-bottom: 1px solid #e3e6f0; font-size: 0.9rem; }
+
+.btn-edit { color: #f6c23e; cursor: pointer; margin-right: 10px; border: none; background: none; }
+.btn-delete { color: #e74a3b; cursor: pointer; border: none; background: none; }

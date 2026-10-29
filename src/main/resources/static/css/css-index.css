@@ -1,0 +1,204 @@
+:root { 
+    --sidebar-width: 260px;
+    --primary-color: #4e73df;
+    --bg-color: #f8f9fc;
+    --text-color: #333;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+body { 
+    background-color: #ffffff;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, #4e73df 10% , #224abe 100%);
+    color: white;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-section {
+    padding: 15px 20px 5px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.5);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: 0.2s;
+    position: relative;
+}
+
+.nav-item:hover {
+    color: white;
+    background: rgba(255,255,255,0.1);
+}
+
+.nav-item i {
+    width: 25px;
+    font-size: 1.1rem;
+    margin-right: 10px;
+}
+
+/* --- MAIN CONTENT --- */
+.main-content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    background: #ffffff;
+}
+
+.topbar {
+    height: 70px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.content-body {
+    padding: 40px;
+}
+
+.welcome-box {
+    background: #f8f9fc;
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 5px solid var(--primary-color);
+    margin-bottom: 30px;
+}
+
+/* --- UTILS --- */
+.badge {
+    background: #e74a3b;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: auto;
+}
+
+.btn-logout {
+    color: #e74a3b;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar { width: 70px; }
+    .sidebar span, .sidebar-section, .sidebar-header span { display: none; }
+    .main-content { margin-left: 70px; }
+}
+        /* CSS bổ sung cho phần Tra cứu sách trong Index */
+        :root {
+            --primary-color: #4e73df;
+            --success-color: #1cc88a;
+            --danger-color: #e74a3b;
+        }
+
+        /* Search Box Styles */
+        .search-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .search-box { display: flex; gap: 10px; flex-wrap: wrap; }
+        .search-box input, .search-box select {
+            padding: 10px;
+            border: 1px solid #d1d3e2;
+            border-radius: 5px;
+            flex: 1;
+            min-width: 150px;
+        }
+        .search-box button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Book Grid Styles */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .book-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-item:hover { transform: translateY(-5px); }
+
+        .book-image {
+            width: 100%;
+            height: 250px;
+            background-color: #f8f9fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .book-image img { width: 100%; height: 100%; object-fit: cover; }
+        .book-image i { font-size: 40px; color: #dddfeb; }
+
+        .book-info { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
+        .book-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #2e59d9;
+            margin-bottom: 8px;
+            height: 2.8em;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .book-meta { font-size: 0.8rem; color: #6e707e; margin-bottom: 4px; }
+        .badge-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+        .status-on { background: #e5f9f0; color: var(--success-color); }
+        .status-off { background: #fdf2f2; color: var(--danger-color); }

@@ -1,0 +1,27 @@
+.user-card {
+    background: white; padding: 25px; border-radius: 10px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    border-top: 4px solid var(--primary-color);
+}
+
+.user-form {
+    background: #f8f9fc; padding: 20px; border-radius: 8px; margin-bottom: 30px;
+    border: 1px solid #e3e6f0;
+}
+
+.table-users { width: 100%; border-collapse: collapse; }
+.table-users th { background: #f8f9fc; color: #4e73df; padding: 12px; text-align: left; border-bottom: 2px solid #e3e6f0; }
+.table-users td { padding: 12px; border-bottom: 1px solid #e3e6f0; font-size: 0.9rem; }
+
+.role-badge {
+    padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;
+}
+.role-admin { background: #fdf2f2; color: #e74a3b; }
+.role-staff { background: #e5f9f0; color: #1cc88a; }
+.role-user { background: #eef2ff; color: #4e73df; }
+
+.status-indicator {
+    width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px;
+}
+.status-online { background: #1cc88a; box-shadow: 0 0 8px #1cc88a; }
+.status-offline { background: #858796; }

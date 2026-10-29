@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Duyệt mượn online | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Yêu cầu mượn online</h1>
+    <div class="success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert" th:if="${error}" th:text="${error}"></div>
+    <section class="admin-section"><h2>Mượn trực tiếp</h2>
+        <form class="inline-form" method="post" th:action="@{/muon-tra/muon-truc-tiep}">
+            <label>Số thẻ<input name="cardNumber" required></label>
+            <label>Mã bản sách<input name="copyId" required></label>
+            <label>Ngày hẹn trả<input name="dueDate" type="date" th:value="${defaultDueDate}" required></label>
+            <label>Ghi chú<input name="note" maxlength="500"></label>
+            <button type="submit">Tạo phiếu mượn</button>
+        </form>
+    </section>
+    <section class="admin-section"><h2>Yêu cầu chờ duyệt</h2>
+    <div class="table-wrap"><table><thead><tr><th>Mã yêu cầu</th><th>Độc giả</th><th>Mã thẻ</th><th>Sách</th><th>Mã bản</th><th>Thao tác</th></tr></thead><tbody>
+        <tr th:each="request : ${requests}">
+            <td th:text="${request.requestId()}"></td><td th:text="${request.readerName()}"></td>
+            <td th:text="${request.cardNumber() == null ? 'Chưa có thẻ' : request.cardNumber()}"></td>
+            <td th:text="${request.title()}"></td><td th:text="${request.copyId()}"></td>
+            <td class="actions-cell">
+                <form method="post" th:action="@{/muon-tra/yeu-cau/duyet}"><input type="hidden" name="requestId" th:value="${request.requestId()}"><button type="submit">Duyệt</button></form>
+                <form method="post" th:action="@{/muon-tra/yeu-cau/tu-choi}"><input type="hidden" name="requestId" th:value="${request.requestId()}"><button class="danger" type="submit">Từ chối</button></form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(requests)}"><td colspan="6">Không có yêu cầu chờ duyệt.</td></tr>
+    </tbody></table></div>
+    </section>
+</main></body></html>

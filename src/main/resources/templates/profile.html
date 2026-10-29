@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thông tin cá nhân | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="auth-card profile-card"><h1>Thông tin cá nhân</h1>
+    <div class="success" th:if="${success}" th:text="${success}"></div><div class="alert" th:if="${error}" th:text="${error}"></div>
+    <p class="muted">Tên đăng nhập: <strong th:text="${username}"></strong> · Vai trò: <strong th:text="${role}"></strong></p>
+    <form method="post" th:action="@{/thong-tin}">
+        <label for="name">Họ và tên</label><input id="name" name="name" required maxlength="200" th:value="${profile.name()}">
+        <label for="nationalId">CMND/CCCD</label><input id="nationalId" name="nationalId" th:value="${profile.nationalId()}">
+        <label for="dateOfBirth">Ngày sinh</label><input id="dateOfBirth" name="dateOfBirth" type="date" th:value="${profile.dateOfBirth()}">
+        <label for="address">Địa chỉ</label><input id="address" name="address" th:value="${profile.address()}">
+        <button type="submit">Lưu hồ sơ</button>
+    </form>
+</main></body></html>

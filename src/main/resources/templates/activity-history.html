@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lịch sử hệ thống | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Lịch sử hệ thống</h1>
+    <section class="admin-section"><h2>Nhật ký hoạt động gần đây</h2><div class="table-wrap"><table><thead><tr><th>Thời gian</th><th>Người thực hiện</th><th>Hành động</th><th>Chi tiết</th></tr></thead><tbody>
+        <tr th:each="entry : ${activities}"><td th:text="${entry.time()}"></td><td th:text="${entry.username()}"></td><td th:text="${entry.action()}"></td><td th:text="${entry.details()}"></td></tr>
+        <tr th:if="${#lists.isEmpty(activities)}"><td colspan="4">Chưa có nhật ký.</td></tr>
+    </tbody></table></div></section>
+    <section class="admin-section"><h2>Lịch sử mượn/trả (50 gần nhất)</h2><div class="table-wrap"><table><thead><tr><th>Mã bản</th><th>Tên sách</th><th>Độc giả</th><th>Ngày mượn</th><th>Hẹn trả</th><th>Trả thực tế</th><th>Tình trạng</th></tr></thead><tbody>
+        <tr th:each="loan : ${loans}"><td th:text="${loan.barcode()}"></td><td th:text="${loan.title()}"></td><td th:text="${loan.reader()}"></td><td th:text="${loan.borrowedAt()}"></td><td th:text="${loan.dueAt()}"></td><td th:text="${loan.returnedAt() == null ? 'Chưa trả' : loan.returnedAt()}"></td><td th:text="${loan.condition()}"></td></tr>
+        <tr th:if="${#lists.isEmpty(loans)}"><td colspan="7">Chưa có lịch sử mượn.</td></tr>
+    </tbody></table></div></section>
+    <section class="admin-section"><h2>Sách đã thanh lý</h2><div class="table-wrap"><table><thead><tr><th>Mã bản</th><th>Tên sách</th></tr></thead><tbody>
+        <tr th:each="book : ${liquidated}"><td th:text="${book.barcode()}"></td><td th:text="${book.title()}"></td></tr>
+        <tr th:if="${#lists.isEmpty(liquidated)}"><td colspan="2">Chưa có sách thanh lý.</td></tr>
+    </tbody></table></div></section>
+</main></body></html>

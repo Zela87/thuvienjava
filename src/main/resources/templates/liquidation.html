@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thanh lý sách | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Thanh lý sách</h1>
+    <p class="muted">Chỉ bản có sẵn hoặc đã đánh dấu hỏng mới được thanh lý. Thao tác được ghi vào nhật ký.</p>
+    <div class="success" th:if="${success}" th:text="${success}"></div><div class="alert" th:if="${error}" th:text="${error}"></div>
+    <div class="table-wrap"><table><thead><tr><th>Mã bản</th><th>Đầu sách</th><th>Trạng thái</th><th>Tình trạng vật lý</th><th>Lý do thanh lý</th><th></th></tr></thead><tbody>
+        <tr th:each="book : ${candidates}">
+            <td th:text="${book.barcode()}"></td><td th:text="${book.title()}"></td>
+            <td th:text="${book.status() == 2 ? 'Hỏng / không khả dụng' : 'Có sẵn'}"></td><td th:text="${book.physicalCondition()}"></td>
+            <td><form class="inline-form compact-form" method="post" th:action="@{/thanh-ly}"><input type="hidden" name="barcode" th:value="${book.barcode()}"><input name="reason" required maxlength="500" placeholder="Lý do"><button class="danger" type="submit">Thanh lý</button></form></td>
+            <td></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(candidates)}"><td colspan="6">Không có bản sách cần thanh lý.</td></tr>
+    </tbody></table></div>
+</main></body></html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng ký độc giả | Quản lý thư viện</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-page">
+<main class="auth-card">
+    <h1>Đăng ký độc giả</h1>
+    <p>Tạo tài khoản để sử dụng dịch vụ thư viện</p>
+    <div class="alert" role="alert" th:if="${error}" th:text="${error}"></div>
+    <form method="post" th:action="@{/register}">
+        <label for="hoten">Họ và tên</label>
+        <input id="hoten" name="hoten" required th:value="${form?.hoten}">
+        <label for="username">Tên đăng nhập</label>
+        <input id="username" name="username" autocomplete="username" required th:value="${form?.username}">
+        <label for="cccd">CCCD/CMND</label>
+        <input id="cccd" name="cccd" required th:value="${form?.cccd}">
+        <label for="ngaysinh">Ngày sinh</label>
+        <input id="ngaysinh" name="ngaysinh" type="date" required th:value="${form?.ngaysinh}">
+        <label for="diachi">Địa chỉ</label>
+        <input id="diachi" name="diachi" required th:value="${form?.diachi}">
+        <label for="password">Mật khẩu (ít nhất 6 ký tự)</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" minlength="6" required>
+        <label for="repassword">Nhập lại mật khẩu</label>
+        <input id="repassword" name="repassword" type="password" autocomplete="new-password" minlength="6" required>
+        <button type="submit">Tạo tài khoản</button>
+    </form>
+    <p class="auth-footer">Đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a></p>
+</main>
+</body>
+</html>

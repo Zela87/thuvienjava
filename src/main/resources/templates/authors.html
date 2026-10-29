@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tác giả | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Quản lý tác giả</h1>
+    <div class="notice" th:if="${message}" th:text="${message == 'linked' ? 'Không thể xóa tác giả đang liên kết với sách.' : (message == 'error' ? 'Không thể lưu dữ liệu.' : 'Thao tác hoàn tất.')}"></div>
+    <form class="inline-form" method="post" th:action="@{/tac-gia/them}"><label>Tên tác giả<input name="ten" required maxlength="200"></label><label>Chức danh<input name="chucdanh" maxlength="100"></label><label>Nơi làm việc<input name="noilamviec" maxlength="255"></label><button type="submit">Thêm tác giả</button></form>
+    <div class="table-wrap"><table><thead><tr><th>Mã</th><th>Tên</th><th>Chức danh</th><th>Nơi làm việc</th><th></th></tr></thead><tbody>
+    <tr th:each="row : ${rows}"><td th:text="${row.id()}"></td><td th:text="${row.name()}"></td><td th:text="${row.title()}"></td><td th:text="${row.workplace()}"></td><td><form method="post" th:action="@{/tac-gia/xoa}"><input type="hidden" name="id" th:value="${row.id()}"><button class="danger" type="submit">Xóa</button></form></td></tr>
+    <tr th:if="${#lists.isEmpty(rows)}"><td colspan="5">Chưa có tác giả.</td></tr>
+    </tbody></table></div>
+</main></body></html>

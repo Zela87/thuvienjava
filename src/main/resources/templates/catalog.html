@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tra cứu sách | Quản lý thư viện</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="catalog-page">
+    <h1>Tra cứu sách</h1>
+    <form class="search-form" method="get" th:action="@{/}">
+        <input name="keyword" type="search" placeholder="Nhập tên sách, tác giả..." th:value="${keyword}">
+        <select name="criteria" aria-label="Tìm theo">
+            <option value="TenSach" th:selected="${criteria == 'TenSach'}">Tên sách</option>
+            <option value="TacGia" th:selected="${criteria == 'TacGia'}">Tác giả</option>
+            <option value="TenTheLoai" th:selected="${criteria == 'TenTheLoai'}">Thể loại</option>
+        </select>
+        <button type="submit">Tìm sách</button>
+    </form>
+    <p class="alert" role="alert" th:if="${catalogError}" th:text="${catalogError}"></p>
+    <p class="muted results-count" th:if="${catalogError == null}" th:text="|${totalBooks} kết quả|"></p>
+    <section class="book-grid" aria-live="polite">
+        <article class="book-card" th:each="book : ${books}">
+            <div class="book-cover">
+                <img th:if="${book.image() != null and !book.image().isBlank()}"
+                     th:src="@{/images/{name}(name=${book.image()})}" th:alt="${book.title()}">
+                <span th:unless="${book.image() != null and !book.image().isBlank()}" aria-hidden="true">📚</span>
+            </div>
+            <div class="book-details">
+                <h2 th:text="${book.title()}"></h2>
+                <p><b>Tác giả:</b> <span th:text="${book.authors() == null or book.authors().isBlank() ? 'Chưa cập nhật' : book.authors()}"></span></p>
+                <p><b>Thể loại:</b> <span th:text="${book.category() == null ? 'Chưa phân loại' : book.category()}"></span></p>
+                <p th:if="${book.publicationYear() != null}"><b>Năm xuất bản:</b> <span th:text="${book.publicationYear()}"></span></p>
+                <span class="availability" th:classappend="${book.availableCopies() > 0 ? ' available' : ' unavailable'}"
+                      th:text="${book.availableCopies() > 0 ? 'Còn ' + book.availableCopies() + ' cuốn' : 'Hết sách'}"></span>
+            </div>
+        </article>
+        <p class="empty-state" th:if="${#lists.isEmpty(books) and catalogError == null}">Không tìm thấy sách phù hợp.</p>
+    </section>
+    <nav class="pagination" th:if="${totalPages > 1}" aria-label="Phân trang kết quả">
+        <a th:if="${currentPage > 0}" th:href="@{/}(keyword=${keyword}, criteria=${criteria}, page=${currentPage - 1})">‹ Trước</a>
+        <span th:text="|Trang ${currentPage + 1} / ${totalPages}|"></span>
+        <a th:if="${currentPage + 1 < totalPages}" th:href="@{/}(keyword=${keyword}, criteria=${criteria}, page=${currentPage + 1})">Sau ›</a>
+    </nav>
+</main>
+</body>
+</html>

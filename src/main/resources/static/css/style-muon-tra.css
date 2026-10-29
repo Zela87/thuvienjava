@@ -1,0 +1,319 @@
+/* =============================================
+   style-muon-tra.css
+   Styles riêng cho trang Mượn / Trả Sách
+   ============================================= */
+
+/* --- Alert Messages --- */
+.alert {
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+.alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.alert-danger  { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+/* --- Tab Navigation --- */
+.tab-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 14px 20px;
+    background: white;
+    border: 2px solid #e3e6f0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #6e707e;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    position: relative;
+    transition: 0.2s;
+    font-size: 0.95rem;
+}
+
+.tab-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(78, 115, 223, 0.3);
+}
+
+.tab-btn .badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    min-width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    border: 2px solid #f8f9fc;
+    padding: 0 5px;
+}
+
+/* --- Tab Content --- */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* --- Two Column Layout --- */
+.two-col-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 25px;
+    align-items: start;
+}
+
+/* --- Card --- */
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    border-left: 4px solid var(--primary-color);
+}
+
+.card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #4e73df;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+/* --- Steps Indicator --- */
+.steps {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 22px;
+}
+
+.step-item {
+    flex: 1;
+    text-align: center;
+    padding: 9px 6px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    color: #aaa;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.step-item.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.step-item.done {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* --- Form Elements --- */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.9rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d3e2;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+}
+
+/* --- Buttons --- */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+    transition: 0.2s;
+    margin-top: 8px;
+    text-decoration: none;
+}
+
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.btn-primary   { background: var(--primary-color); color: white; }
+.btn-success   { background: var(--success-color); color: white; box-shadow: 0 4px 12px rgba(28, 200, 138, 0.35); }
+.btn-secondary { background: #858796; color: white; }
+
+/* --- Info Card --- */
+.info-card {
+    background: #f8f9fc;
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.info-card h3 {
+    margin: 0 0 12px 0;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px dashed #e3e6f0;
+    font-size: 0.88rem;
+}
+
+.info-row:last-child { border-bottom: none; }
+.info-row span:first-child { color: #6e707e; }
+
+/* --- Section Title --- */
+.section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 15px 0 12px;
+}
+
+/* --- Reader List (Tab yêu cầu) --- */
+.reader-list {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.reader-item {
+    background: white;
+    border: 1px solid #e3e6f0;
+    border-left: 4px solid var(--primary-color);
+    padding: 14px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.reader-item:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.08); transform: translateX(2px); }
+
+.reader-item.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.reader-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reader-meta { font-size: 0.82rem; opacity: 0.75; }
+
+.badge-count {
+    background: var(--danger-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: bold;
+}
+
+.reader-item.selected .badge-count {
+    background: rgba(255,255,255,0.3);
+}
+
+/* --- Book Actions --- */
+.book-actions {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: 0.2s;
+}
+
+.btn-approve { background: #d4edda; color: #155724; }
+.btn-approve:hover { background: var(--success-color); color: white; }
+.btn-reject  { background: #f8d7da; color: #721c24; }
+.btn-reject:hover  { background: var(--danger-color); color: white; }
+
+/* --- Mono Badge --- */
+.mono-badge {
+    background: #eee;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.88rem;
+}
+
+/* --- Empty State --- */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #b7b9cc;
+}
+
+.empty-state i {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.empty-state p { font-size: 1rem; }
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+    .two-col-layout { grid-template-columns: 1fr; }
+    .tab-btn { font-size: 0.82rem; padding: 12px 10px; }
+}

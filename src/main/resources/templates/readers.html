@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Độc giả và thẻ | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Độc giả và thẻ thư viện</h1>
+    <div class="notice" th:if="${message}" th:switch="${message}">
+        <span th:case="'issued'">Đã cấp thẻ một năm.</span>
+        <span th:case="'renewed'">Đã gia hạn thẻ thêm một năm.</span>
+        <span th:case="'status'">Đã cập nhật trạng thái thẻ.</span>
+        <span th:case="'invalid'">Dữ liệu không hợp lệ hoặc độc giả đã có thẻ.</span>
+        <span th:case="*">Không thể hoàn tất thao tác cơ sở dữ liệu.</span>
+    </div>
+
+    <section class="admin-section"><h2>Cấp thẻ cho độc giả chưa có thẻ</h2>
+        <form class="inline-form" method="post" th:action="@{/the-thu-vien/cap}">
+            <label>Độc giả<select name="readerId" required><option value="">Chọn độc giả</option><option th:each="reader : ${readersWithoutCard}" th:value="${reader.id()}" th:text="|${reader.fullName()} (#${reader.id()})|"></option></select></label>
+            <label>Tiền đặt cọc<input name="deposit" type="number" min="0" step="1000" required></label>
+            <button type="submit" th:disabled="${#lists.isEmpty(readersWithoutCard)}">Cấp thẻ (hạn 1 năm)</button>
+        </form>
+        <p class="muted" th:if="${#lists.isEmpty(readersWithoutCard)}">Tất cả độc giả hiện đã có thẻ.</p>
+    </section>
+
+    <section class="admin-section"><h2>Danh sách độc giả</h2>
+        <form class="search-form" method="get" th:action="@{/doc-gia}">
+            <input name="keyword" type="search" placeholder="Tên, mã độc giả, tài khoản hoặc CCCD" th:value="${keyword}">
+            <button type="submit">Tìm</button>
+        </form>
+        <div class="table-wrap"><table><thead><tr><th>Mã độc giả</th><th>Họ tên / tài khoản</th><th>CCCD</th><th>Ngày sinh</th><th>Địa chỉ</th><th>Thẻ</th><th>Thời hạn</th><th>Đặt cọc</th><th>Thao tác</th></tr></thead><tbody>
+            <tr th:each="reader : ${readers}">
+                <td th:text="${reader.id()}"></td>
+                <td><strong th:text="${reader.fullName()}"></strong><br><small th:text="${reader.username()}"></small></td>
+                <td th:text="${reader.nationalId()}"></td><td th:text="${reader.dateOfBirth()}"></td><td th:text="${reader.address()}"></td>
+                <td>
+                    <span th:if="${reader.cardNumber() == null}" class="status-pill inactive">Chưa có thẻ</span>
+                    <span th:if="${reader.cardNumber() != null}" th:text="${reader.cardNumber()}" class="status-pill"></span><br>
+                    <span th:if="${reader.cardStatus() != null}" class="muted" th:text="${reader.cardStatus() == 1 ? 'Đang hoạt động' : 'Đã khóa'}"></span>
+                </td>
+                <td th:if="${reader.cardNumber() != null}" th:text="|${reader.issuedAt()} → ${reader.expiresAt()}|"></td><td th:unless="${reader.cardNumber() != null}">—</td>
+                <td th:text="${reader.deposit() == null ? '—' : #numbers.formatDecimal(reader.deposit(), 1, 'COMMA', 0, 'POINT')}"></td>
+                <td class="actions-cell" th:if="${reader.cardNumber() != null}">
+                    <form method="post" th:action="@{/the-thu-vien/gia-han}"><input type="hidden" name="cardNumber" th:value="${reader.cardNumber()}"><button type="submit">Gia hạn</button></form>
+                    <form method="post" th:action="@{/the-thu-vien/trang-thai}"><input type="hidden" name="cardNumber" th:value="${reader.cardNumber()}"><input type="hidden" name="status" th:value="${reader.cardStatus() == 1 ? 0 : 1}"><button type="submit" th:text="${reader.cardStatus() == 1 ? 'Khóa' : 'Mở khóa'}"></button></form>
+                </td><td th:unless="${reader.cardNumber() != null}">—</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(readers)}"><td colspan="9">Không tìm thấy độc giả.</td></tr>
+        </tbody></table></div>
+    </section>
+</main></body></html>

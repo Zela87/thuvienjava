@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Người dùng | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Quản lý tài khoản</h1>
+    <div class="success" th:if="${success}" th:text="${success}"></div><div class="alert" th:if="${error}" th:text="${error}"></div>
+    <section class="admin-section"><h2>Tạo tài khoản</h2>
+        <form class="inline-form" method="post" th:action="@{/nguoi-dung/tao}">
+            <label>Tên đăng nhập<input name="username" required minlength="3" maxlength="100"></label>
+            <label>Mật khẩu<input name="password" type="password" required minlength="6"></label>
+            <label>Họ và tên<input name="name" required maxlength="100"></label>
+            <label>Vai trò<select name="role" required><option value="DocGia">Độc giả</option><option value="ThuThu">Thủ thư</option><option value="QuanTriVien">Quản trị viên</option></select></label>
+            <button type="submit">Tạo tài khoản</button>
+        </form>
+    </section>
+    <section class="admin-section"><h2>Danh sách tài khoản</h2><div class="table-wrap"><table><thead><tr><th>Tên đăng nhập</th><th>Họ tên</th><th>Vai trò</th><th>Trạng thái</th><th></th></tr></thead><tbody>
+        <tr th:each="account : ${accounts}"><td th:text="${account.username()}"></td><td th:text="${account.name() == null ? '—' : account.name()}"></td><td th:text="${account.role()}"></td>
+            <td th:text="${account.status() == 1 ? 'Đang hoạt động' : 'Đang khóa'}"></td>
+            <td><span th:if="${account.username() == username}" class="muted">Tài khoản hiện tại</span><form th:unless="${account.username() == username}" method="post" th:action="@{/nguoi-dung/trang-thai}"><input type="hidden" name="username" th:value="${account.username()}"><input type="hidden" name="currentStatus" th:value="${account.status()}"><button type="submit" th:text="${account.status() == 1 ? 'Khóa' : 'Mở khóa'}"></button></form></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(accounts)}"><td colspan="5">Chưa có tài khoản.</td></tr>
+    </tbody></table></div></section>
+</main></body></html>

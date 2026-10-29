@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng ký mượn | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Đăng ký mượn sách</h1>
+    <div class="success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert" th:if="${error}" th:text="${error}"></div>
+    <section class="loan-summary">
+        <p th:if="${summary.error() != null}" class="alert" th:text="${summary.error()}"></p>
+        <div th:if="${summary.error() == null}">
+            <strong>Thẻ:</strong> <span th:text="${summary.cardNumber()}"></span>
+            <span class="muted">· Đang mượn <b th:text="${summary.borrowed()}"></b>
+            · Chờ duyệt <b th:text="${summary.pending()}"></b>
+            · Còn có thể đăng ký <b th:text="${summary.remaining()}"></b> / <span th:text="${summary.limit()}"></span></span>
+        </div>
+    </section>
+
+    <section class="admin-section"><h2>Bản sách còn khả dụng</h2>
+        <form method="post" th:action="@{/dang-ky-muon}">
+            <div class="table-wrap"><table><thead><tr><th>Chọn</th><th>Mã bản</th><th>Tên sách</th><th>Tác giả</th><th>Thể loại</th></tr></thead><tbody>
+                <tr th:each="copy : ${copies}">
+                    <td><input type="checkbox" name="selected_books" th:value="${copy.barcode()}" th:disabled="${summary.error() != null or summary.remaining() == 0}"></td>
+                    <td th:text="${copy.barcode()}"></td><td th:text="${copy.title()}"></td>
+                    <td th:text="${copy.authors() == null ? '—' : copy.authors()}"></td><td th:text="${copy.category() == null ? '—' : copy.category()}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(copies)}"><td colspan="5">Hiện không có bản sách khả dụng.</td></tr>
+            </tbody></table></div>
+            <button type="submit" th:disabled="${summary.error() != null or summary.remaining() == 0 or #lists.isEmpty(copies)}">Gửi yêu cầu</button>
+        </form>
+    </section>
+
+    <section class="admin-section"><h2>Yêu cầu của tôi</h2><div class="table-wrap"><table>
+        <thead><tr><th>Mã yêu cầu</th><th>Mã bản</th><th>Sách</th><th>Trạng thái</th><th></th></tr></thead><tbody>
+        <tr th:each="request : ${requests}"><td th:text="${request.requestId()}"></td><td th:text="${request.barcode()}"></td><td th:text="${request.title()}"></td><td th:text="${request.status()}"></td>
+            <td><form th:if="${request.status() == 'ChoDuyet'}" method="post" th:action="@{/dang-ky-muon/huy}"><input type="hidden" name="requestId" th:value="${request.requestId()}"><button class="danger" type="submit">Hủy</button></form></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(requests)}"><td colspan="5">Bạn chưa có yêu cầu mượn.</td></tr>
+        </tbody></table></div>
+    </section>
+</main></body></html>

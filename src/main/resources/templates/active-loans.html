@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phiếu mượn | Quản lý thư viện</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head><body>
+<header th:replace="~{fragments/navigation :: topbar}"></header>
+<main class="admin-page"><h1>Phiếu mượn đang mở</h1>
+    <div class="success" th:if="${success}" th:text="${success}"></div><div class="alert" th:if="${error}" th:text="${error}"></div>
+    <form class="search-form" method="get" th:action="@{/phieu-muon}">
+        <input name="search" placeholder="Tên sách, độc giả, mã thẻ hoặc mã bản" th:value="${search}">
+        <select name="filterStatus"><option value="" th:selected="${filterStatus == ''}">Tất cả hạn trả</option><option value="late" th:selected="${filterStatus == 'late'}">Quá hạn</option><option value="valid" th:selected="${filterStatus == 'valid'}">Chưa quá hạn</option></select>
+        <button type="submit">Lọc</button>
+    </form>
+    <div class="table-wrap"><table><thead><tr><th>Phiếu</th><th>Độc giả / thẻ</th><th>Sách / mã bản</th><th>Hạn trả</th><th>Giá</th><th>Nhận trả</th></tr></thead><tbody>
+        <tr th:each="loan : ${loans}">
+            <td th:text="${loan.loanId()}"></td><td><span th:text="${loan.readerName()}"></span><br><small th:text="${loan.cardNumber()}"></small></td>
+            <td><span th:text="${loan.title()}"></span><br><small th:text="${loan.barcode()}"></small></td>
+            <td th:text="${loan.dueDate()}"></td><td th:text="${#numbers.formatDecimal(loan.price(), 1, 'COMMA', 0, 'POINT')}"></td>
+            <td><form method="post" th:action="@{/phieu-muon/tra}" class="return-form">
+                <input type="hidden" name="barcode" th:value="${loan.barcode()}">
+                <select name="condition" required><option value="BinhThuong">Bình thường</option><option value="Rach">Rách (phạt 20%)</option><option value="Hong">Hỏng (phạt 50%)</option><option value="Mat">Mất (phạt 100%)</option></select>
+                <input name="note" placeholder="Ghi chú tình trạng">
+                <button type="submit">Xác nhận trả</button>
+            </form></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(loans)}"><td colspan="6">Không có phiếu mượn đang mở phù hợp.</td></tr>
+    </tbody></table></div>
+</main></body></html>

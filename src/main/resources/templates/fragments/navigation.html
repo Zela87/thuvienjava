@@ -1,0 +1,26 @@
+<header class="topbar" th:fragment="topbar">
+    <a class="brand" th:href="@{/}">Quản lý thư viện</a>
+    <nav class="main-nav">
+        <a th:if="${user != null and user.isDocGia()}" th:href="@{/dang-ky-muon}">Đăng ký mượn</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/sach}">Sách</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/the-loai}">Thể loại</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/tac-gia}">Tác giả</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/nxb}">Nhà xuất bản</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/doc-gia}">Độc giả/thẻ</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/muon-tra}">Duyệt/mượn trực tiếp</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/phieu-muon}">Phiếu mượn</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/thanh-ly}">Thanh lý</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/lich-su}">Lịch sử</a>
+        <a th:if="${user != null and user.isStaff()}" th:href="@{/thong-ke}">Thống kê</a>
+        <a th:if="${user != null and user.isAdmin()}" th:href="@{/nguoi-dung}">Người dùng</a>
+        <a th:if="${user != null}" th:href="@{/bao-cao}">Hỗ trợ <span class="nav-badge" th:if="${user.isStaff() and unreadSupport > 0}" th:text="${unreadSupport}"></span></a>
+    </nav>
+    <div class="account-nav" th:if="${user != null}">
+        <span th:text="${hoTen}"></span>
+        <a th:href="@{/thong-tin}">Hồ sơ</a>
+        <form method="post" th:action="@{/logout}"><button class="button-link" type="submit">Đăng xuất</button></form>
+    </div>
+    <div class="account-nav" th:unless="${user != null}">
+        <a th:href="@{/login}">Đăng nhập</a><a th:href="@{/register}">Đăng ký</a>
+    </div>
+</header>

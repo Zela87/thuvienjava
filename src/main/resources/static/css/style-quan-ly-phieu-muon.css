@@ -1,0 +1,78 @@
+
+        /* Table Style tùy chỉnh cho trang quản lý */
+        .table-responsive {
+            overflow-x: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table thead th {
+            background-color: #f8f9fc;
+            color: var(--primary-color);
+            text-align: left;
+            padding: 15px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid #e3e6f0;
+        }
+
+        table tbody td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        table tbody tr:hover {
+            background-color: #fcfdff;
+        }
+
+        /* Đồng bộ hóa các badge trạng thái */
+        .badge-status.bg-late { background: #fdf2f2; color: var(--danger-color); }
+        .badge-status.bg-ok { background: #e5f9f0; color: var(--success-color); }
+
+        /* Nút thu hồi */
+        .btn-return {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-return:hover { opacity: 0.8; }
+
+        /* Modal xác nhận */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 450px;
+            margin: 10% auto;
+            padding: 25px;
+            border-radius: 15px;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #4e73df; }
+        .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #d1d3e2; border-radius: 5px;
+        }
